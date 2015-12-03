@@ -16,6 +16,11 @@ window.onload = function () {
         count = 9;
         images = [];
         while (images.length < count) {
+            (function (clickedId) {
+                document.getElementById(images.length).onclick = function (e) {
+                    clickHandle(clickedId);
+                }
+            })(images.length);
             images.push(document.getElementById(images.length));
         }
     }
@@ -194,6 +199,23 @@ window.onload = function () {
                 requestAnimationFrame(autoScroll);
                 return true;
             }
+        }
+    }
+
+    function clickHandle(to) {
+        var centerIndex = center % count;
+        while (centerIndex < 0) centerIndex += count;
+        var offsetPosition;
+        if (to - centerIndex > count/2) offsetPosition = (to - centerIndex) - count;
+        else if (to - centerIndex <= -count/2) offsetPosition = (to - centerIndex) + count;
+        else offsetPosition = to - centerIndex;
+        target = offset + offsetPosition * dim;
+        if (to == center) console.log('Clicked Center ' + centerIndex);
+        else {
+            amplitude = target - offset;
+            timestamp = Date.now();
+            requestAnimationFrame(autoScroll);
+            return true;
         }
     }
 
