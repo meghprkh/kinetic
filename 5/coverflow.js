@@ -146,9 +146,11 @@ window.onload = function () {
         clearInterval(ticker);
         ticker = setInterval(track, 100);
 
-        // e.preventDefault(); // Commented to allow onclick event to fire
+        // allow touch devices to handle click event but dont allow dragging on desktops
+        if (e.type == 'mousedown') e.preventDefault();
         e.stopPropagation();
-        // return false; // Commented to allow onclick event to fire
+        // allow touch devices to handle click event but dont allow dragging on desktops
+        if (e.type == 'mousedown') return false;
     }
 
     function drag(e) {
