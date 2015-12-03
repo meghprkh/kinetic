@@ -19,6 +19,8 @@ window.onload = function () {
             (function (clickedId) {
                 document.getElementById(images.length).onclick = function (e) {
                     clickHandle(clickedId);
+                    e.preventDefault();
+                    e.stopPropagation();
                 }
             })(images.length);
             images.push(document.getElementById(images.length));
@@ -144,9 +146,9 @@ window.onload = function () {
         clearInterval(ticker);
         ticker = setInterval(track, 100);
 
-        e.preventDefault();
+        // e.preventDefault(); // Commented to allow onclick event to fire
         e.stopPropagation();
-        return false;
+        // return false; // Commented to allow onclick event to fire
     }
 
     function drag(e) {
@@ -169,18 +171,22 @@ window.onload = function () {
 
         clearInterval(ticker);
         target = offset;
+        timestamp = Date.now();
         if (velocity > 10 || velocity < -10) {
             amplitude = 0.9 * velocity;
             target = offset + amplitude;
-        }
-        target = Math.round(target / dim) * dim;
-        amplitude = target - offset;
-        timestamp = Date.now();
-        requestAnimationFrame(autoScroll);
+            target = Math.round(target / dim) * dim;
+            amplitude = target - offset;
+            requestAnimationFrame(autoScroll);
 
-        e.preventDefault();
-        e.stopPropagation();
-        return false;
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+        } else { // Snap to nearest element and allow to fire click event
+            target = Math.round(target / dim) * dim;
+            amplitude = target - offset;
+            requestAnimationFrame(autoScroll);
+        }
     }
 
     function handleKey(e) {
