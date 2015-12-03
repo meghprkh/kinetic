@@ -1,5 +1,7 @@
 # JavaScript Kinetic Scrolling
 
+Added click to scroll functionality [demo](http://meghprkh.github.io/kinetic/5)
+
 \#1: **Basic drag-and-scroll** ([demo](http://ariya.github.io/kinetic/1/), [explanation](http://ariya.ofilabs.com/2013/08/javascript-kinetic-scrolling-part-1.html)).<br/>
 No momentum effect yet, just a plain scroll view.
 
